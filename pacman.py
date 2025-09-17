@@ -15,6 +15,7 @@ from turtle import *
 from freegames import floor, vector
 
 state = {'score': 0}
+speed = 120 
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
@@ -109,9 +110,10 @@ def world():
 
 def move():
     """Move pacman and all ghosts."""
+    global speed 
+    
     writer.undo()
     writer.write(state['score'])
-
     clear()
 
     if valid(pacman + aim):
@@ -154,8 +156,10 @@ def move():
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+    if speed > 40:    
+        speed -= 1
 
+    ontimer(move, speed)
 
 def change(x, y):
     """Change pacman aim if valid."""
